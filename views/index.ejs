@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/bshead.ejs %>
+  </head>
+  <body>
+    <% include partials/nav.ejs %>
+    <div class="container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td>SimID</td>
+            <td>pantone name</td>
+            <% kinds.forEach(function(knd){ %>
+              <td><%= knd.toString() %></td>
+            <% }); %>
+          </tr>
+          <% data.forEach(function(item){ %>
+            <tr>
+              <td><%= item.simulationID %></td>
+              <td><%= item.pantonename %></td>
+              <% kinds.forEach(function(knd){ %>
+                <% if(knd.toString()==item.designID.toString()){ %>
+                  <td class="bg-success text-white"><%= knd.toString() %>
+                  <% } else {%>
+                    <td>. <% } %>
+                  </td>
+              <% }); %>
+            </tr>
+          <% }); %>
+        </thead>
+      </table>
+    </div>
+  </body>
+</html>

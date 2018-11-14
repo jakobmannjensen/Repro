@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/jakobmannjensen/Repro/issues"
   },
-  "homepage": "https://github.com/jakobmannjensen/Repro#readme"
+  "homepage": "https://github.com/jakobmannjensen/Repro#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mssql": "^4.2.3"
+  }
 }
