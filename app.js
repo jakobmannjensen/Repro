@@ -1,6 +1,6 @@
 var sql = require('mssql');
 var express = require('express');
-var config = require('./nogit/dbobj.js');
+var config = require('./nogit/reprodb.js');
 
 var app = express();
 
@@ -11,7 +11,7 @@ app.get('/', function(req, res){
   sql.connect(config, function (err) {
       if (err) console.log(err);
       var request = new sql.Request();
-      request.query('select ColorSimulation.simulationID, ColorSimulation.designID, ColorSimulation.pantonename, Design.designnumber, Design.[version] from ColorSimulation left join Design on ColorSimulation.designID = Design.designID;', function (err, queryresult) {
+      request.query('select * from AAR_AE_Job', function (err, queryresult) {
           if (err) console.log(err)
           console.log(queryresult);
           sql.close();
