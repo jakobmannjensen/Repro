@@ -16,7 +16,7 @@ app.get('/', function(req, res){
           console.log(queryresult);
           sql.close();
           console.log('teeest '+ differentDesignIDs(queryresult.recordset));
-          res.render('index', {data: queryresult.recordset,kinds: differentDesignIDs(queryresult.recordset)});
+          res.render('index', {data: queryresult.recordset});
       });
   });
 });

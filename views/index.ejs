@@ -9,23 +9,17 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td>SimID</td>
-            <td>pantone name</td>
-            <% kinds.forEach(function(knd){ %>
-              <td><%= knd.toString() %></td>
-            <% }); %>
+            <td>ShortWFID</td>
+            <td>Workflow name</td>
+            <td>Input file</td>
+            <td>Start time</td>
           </tr>
           <% data.forEach(function(item){ %>
             <tr>
-              <td><%= item.simulationID %></td>
-              <td><%= item.pantonename %></td>
-              <% kinds.forEach(function(knd){ %>
-                <% if(knd.toString()==item.designID.toString()){ %>
-                  <td class="bg-success text-white"><%= knd.toString() %>
-                  <% } else {%>
-                    <td>. <% } %>
-                  </td>
-              <% }); %>
+              <td><%= item.ShortWorkflowTaskID %></td>
+              <td><%= item.WorkflowName %></td>
+              <td><%= item.InputFileName %></td>
+              <td><%= item.startTime %></td>
             </tr>
           <% }); %>
         </thead>
