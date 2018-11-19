@@ -13,10 +13,38 @@ app.get('/', function(req, res){
       var request = new sql.Request();
       request.query('select * from AAR_AE_Job', function (err, queryresult) {
           if (err) console.log(err)
-          console.log(queryresult);
+          //console.log(queryresult);
           sql.close();
-          console.log('teeest '+ differentDesignIDs(queryresult.recordset));
+          //console.log('teeest '+ differentDesignIDs(queryresult.recordset));
           res.render('index', {data: queryresult.recordset});
+      });
+  });
+});
+
+app.get('/milestones', function(req, res){
+  sql.connect(config, function (err) {
+      if (err) console.log(err);
+      var request = new sql.Request();
+      request.query('select * from AAR_AE_Milestone', function (err, queryresult) {
+          if (err) console.log(err)
+          //console.log(queryresult);
+          sql.close();
+          //console.log('teeest '+ differentDesignIDs(queryresult.recordset));
+          res.render('milestones', {data: queryresult.recordset});
+      });
+  });
+});
+
+app.get('/milestoneTypes', function(req, res){
+  sql.connect(config, function (err) {
+      if (err) console.log(err);
+      var request = new sql.Request();
+      request.query('select * from AAR_AE_MilestoneType', function (err, queryresult) {
+          if (err) console.log(err)
+          //console.log(queryresult);
+          sql.close();
+          //console.log('teeest '+ differentDesignIDs(queryresult.recordset));
+          res.render('milestonetypes', {data: queryresult.recordset});
       });
   });
 });

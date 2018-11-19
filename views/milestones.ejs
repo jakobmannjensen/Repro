@@ -5,22 +5,22 @@
   </head>
   <body>
     <% include partials/nav.ejs %>
-    <h1>Index</h1>
+    <h1>Milestones</h1>
     <div class="container">
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td>ShortWFID</td>
-            <td>Workflow name</td>
-            <td>Input file</td>
-            <td>Start time</td>
+            <td>MilestoneID</td>
+            <td>WorkflowTaskId</td>
+            <td>MilestoneTypeID</td>
+            <td>LogTime</td>
           </tr>
           <% data.forEach(function(item){ %>
             <tr>
+              <td><%= item.MilestoneID %></td>
               <td><%= item.ShortWorkflowTaskID %></td>
-              <td><%= item.WorkflowName %></td>
-              <td><%= item.InputFileName %></td>
-              <td><%= item.startTime %></td>
+              <td><%= item.MilestoneTypeID %></td>
+              <td><%= item.LogTime %></td>
             </tr>
           <% }); %>
         </thead>
