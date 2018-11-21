@@ -19,6 +19,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "mssql": "^4.2.3"
+    "mssql": "^4.2.3",
+    "xml2js": "^0.4.19"
   }
 }

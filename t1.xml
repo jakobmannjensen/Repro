@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ntf:NOTIFICATIONS xmlns:ntf="flng_notification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="taskv1" xmlns:bgt="xmlbgtypesv1" xmlns:eg="http://www.esko-graphics.com/EGschema1_0" version="1" xsi:schemaLocation="flng_notification xmlnotifv1.xsd">
+  <EVENT>
+    <TASK>
+      <TASKNAME>ARTPROPROCESSORTASK</TASKNAME>
+      <TICKETNAME Modified="maybe">ARTPROPROCESSORTASK/Default</TICKETNAME>
+      <TICKETWFLAB>SR 2017 1 of 8</TICKETWFLAB>
+      <OPERATOR>admin@dkaar-esk-01</OPERATOR>
+      <STARTED>2018-11-21T14:32:19.23Z</STARTED>
+      <ENDED>2018-11-21T14:32:35.71Z</ENDED>
+      <SERVER>dkaar-esk-01</SERVER>
+      <STATUS>OK,Warning</STATUS>
+      <WORKFLOWSTATUS>OK,Warning</WORKFLOWSTATUS>
+      <PRIORITY prio="60">Rush</PRIORITY>
+      <JOBFOLDERUNC>\\dkaar-esk-03\FTP\DKAAR_REPRO\AEUPTRN\ZipUV\work</JOBFOLDERUNC>
+      <WFID>201811211531002001cb7c2c8-7a2e-4a35-b2b5-5cd898686799</WFID>
+      <SHORTID>7606635</SHORTID>
+      <INPUT>
+        <INPUTUNC>\\dkaar-esk-01\AutomationEngineTmpFolder\UV18K5863-AF_20181121_4SingleLanes\SRFlow\UNZIPPED34d65d14-488a-468a-b240-51684360bbf1\K5863-AFA-3_RNE.pdf</INPUTUNC>
+        <INPUTUNC>\\dkaar-esk-01\Resources\Templates\SREbdis\1L\1L_Base.ap</INPUTUNC>
+      </INPUT>
+      <OUTPUT>
+        <OUTPUTUNC>\\dkaar-esk-01\AutomationEngineTmpFolder\UV18K5863-AF_20181121_4SingleLanes\SRFlow\SR\Part14d828120-de6d-440f-b2a5-eaea162c0ad6\K5863-AFA_SR.ap</OUTPUTUNC>
+      </OUTPUT>
+    </TASK>
+  </EVENT>
+</ntf:NOTIFICATIONS>
+

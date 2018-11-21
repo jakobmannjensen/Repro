@@ -1,11 +1,14 @@
 var sql = require('mssql');
 var express = require('express');
 var config = require('./nogit/reprodb.js');
+var fs = require('fs');
+var xml2js = require('xml2js');
 
 var app = express();
 
 app.set('view engine', 'ejs');
 
+var parser = new xml2js.Parser();
 
 app.get('/', function(req, res){
   sql.connect(config, function (err) {
@@ -46,6 +49,16 @@ app.get('/milestoneTypes', function(req, res){
           //console.log('teeest '+ differentDesignIDs(queryresult.recordset));
           res.render('milestonetypes', {data: queryresult.recordset});
       });
+  });
+});
+
+app.get('/parse', function(req, res){
+  fs.readFile('t1.xml', function(err,data){
+    parser.parseString(data, function(err, result){
+      console.log(Object.getOwnPropertyNames(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']));
+        //res.render('parse',{data: JSON.stringify(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETWFLAB'])});
+        res.render('parse',{data: result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']});
+    });
   });
 });
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/bshead.ejs %>
+  </head>
+  <body>
+    <% include partials/nav.ejs %>
+    <h1>Parse</h1>
+    <div class="container">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td>TASKNAME</td>
+            <td><%= data['TASKNAME'] %></td>
+          </tr>
+          <tr>
+            <td>TICKETWFLAB</td>
+            <td><%= data['TICKETWFLAB'] %></td>
+          </tr>
+          <tr>
+            <td>OPERATOR</td>
+            <td><%= data['OPERATOR'] %></td>
+          </tr>
+          <tr>
+            <td>STARTED</td>
+            <td><%= data['STARTED'] %></td>
+          </tr>
+          <tr>
+            <td>ENDED</td>
+            <td><%= data['ENDED'] %></td>
+          </tr>
+          <tr>
+            <td>SERVER</td>
+            <td><%= data['SERVER'] %></td>
+          </tr>
+          <tr>
+            <td>STATUS</td>
+            <td><%= data['STATUS'] %></td>
+          </tr>
+          <tr>
+            <td>WORKFLOWSTATUS</td>
+            <td><%= data['WORKFLOWSTATUS'] %></td>
+          </tr>
+          <tr>
+            <td>PRIORITY</td>
+            <td><%= data['PRIORITY'] %></td>
+          </tr>
+          <tr>
+            <td>JOBFOLDERUNC</td>
+            <td><%= data['JOBFOLDERUNC'] %></td>
+          </tr>
+          <tr>
+            <td>WFID</td>
+            <td><%= data['WFID'] %></td>
+          </tr>
+          <tr>
+            <td>SHORTID</td>
+            <td><%= data['SHORTID'] %></td>
+          </tr>
+          <tr>
+            <td>INPUT</td>
+            <td><%= data['INPUT'] %></td>
+          </tr>
+          <tr>
+            <td>OUTPUT</td>
+            <td><%= data['OUTPUT'] %></td>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </body>
+</html>
