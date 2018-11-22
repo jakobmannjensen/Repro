@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ntf:NOTIFICATIONS xmlns:ntf="flng_notification" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="taskv1" xmlns:bgt="xmlbgtypesv1" xmlns:eg="http://www.esko-graphics.com/EGschema1_0" version="1" xsi:schemaLocation="flng_notification xmlnotifv1.xsd">
+  <EVENT>
+    <TASK>
+      <TASKNAME>swft</TASKNAME>
+      <TICKETNAME Modified="maybe">swft/Plate Step and Repeat 2018</TICKETNAME>
+      <TICKETWFLAB>Plate Step and Repeat 2018</TICKETWFLAB>
+      <OPERATOR>admin@dkaar-esk-01</OPERATOR>
+      <STARTED>2018-11-22T06:47:54.22Z</STARTED>
+      <ENDED>2018-11-22T06:47:54.80Z</ENDED>
+      <ENDEDASYNC>2018-11-22T06:51:19.19Z</ENDEDASYNC>
+      <SERVER>dkaar-esk-01</SERVER>
+      <STATUS>OK</STATUS>
+      <WORKFLOWSTATUS>OK</WORKFLOWSTATUS>
+      <PRIORITY prio="61">Rush</PRIORITY>
+      <JOBFOLDERUNC>\\dkaar-esk-03\AE_Hotfolders\Plate_UV_SR\work</JOBFOLDERUNC>
+      <WFID>20181122074454066c93e7bdc-2b5d-441c-9413-a0e3e23fd075</WFID>
+      <SHORTID>7611176</SHORTID>
+      <INPUT>
+        <INPUTUNC>\\dkaar-esk-03\AE_Hotfolders\Plate_UV_SR\work\K2688-UB_A100.zip</INPUTUNC>
+      </INPUT>
+      <OUTPUT>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L4_P2738C.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L4_Y.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L4_K.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L4_C.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L4_PGREENC.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L1_P2738C.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L2_P2738C.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L1_K.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L1_C.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L1_PGREENC.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L1_Y.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L2_Y.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L3_P2738C.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L2_K.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L2_C.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L2_PGREENC.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L3_K.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L3_C.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L3_PGREENC.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\ProductionFiles\LenFiles\K2688-UB_KB_UVNEF\K2688-UB_L3_Y.len</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\InternalFiles\PDF_SR\K2688-UB_L2.pdf</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\InternalFiles\PDF_SR\K2688-UB_L3.pdf</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\InternalFiles\PDF_SR\K2688-UB_L4.pdf</OUTPUTUNC>
+        <OUTPUTUNC>\\dkaar-esk-03\InternalFiles\PDF_SR\K2688-UB_L1.pdf</OUTPUTUNC>
+      </OUTPUT>
+    </TASK>
+  </EVENT>
+</ntf:NOTIFICATIONS>
+
