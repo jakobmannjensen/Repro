@@ -10,7 +10,7 @@ function scanHotfolder(){
   var getDirectories = function (src, callback) {
     glob(src + '/**/*', callback);
   };
-  getDirectories('/Users/jakobmannjensen/Documents/NodeJS', function (err, res) {
+  getDirectories('/Users/jakobmannjensen/Documents/NodeJS/hotfolder', function (err, res) {
     if (err) {
       console.log('Error', err);
     } else {
@@ -19,7 +19,7 @@ function scanHotfolder(){
     console.log('length: '+res.length);
     for(var f in res)
     {
-      if(res[f].includes('.json'))
+      if(res[f].includes('.xml'))
       {
         console.log('TestNew '+res[f]);
       }
