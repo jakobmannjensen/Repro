@@ -33,13 +33,14 @@ function scanHotfolder(){
 
   function processXML(xmlfile)
   {
+    console.log('Start processXML');
     var bname = path.basename(xmlfile);
     var workfilename = '/Users/jakobmannjensen/Documents/NodeJS/workfolder/'+bname;
-    fs.rename(xmlfile, workfilename, (err) => {
+    fs.renameSync(xmlfile, workfilename, (err) => {
       if (err) throw err;
       console.log('Rename complete!');
     });
-    
+
 
     fs.readFile(workfilename, function(err,data){
       parser.parseString(data, function(err, result){
