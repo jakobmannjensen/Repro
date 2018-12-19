@@ -5,7 +5,23 @@ var path = require('path');
 
 var parser = new xml2js.Parser();
 
+var settingsFile = './Settings/configuration.xml';
+var scanfolder = '';
+var workfolder = '';
+
 module.exports.startHotfolder = function(){
+  console.log('Starting tha hotfolder');
+  fs.readFileSync(settingsFile, function(err,data){
+    if(err)
+    {
+      console.log("ERROR");
+    }
+    console.log('In the readfilesync method');
+    parser.parseString(data, function(err, result){
+      console.dir(result['hotfolder']);
+      console.log('Result from settings xml: '+result);
+    });
+  });
   console.log('Hotfolder running');
   scanHotfolder();
 };
