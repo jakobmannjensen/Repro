@@ -29,6 +29,7 @@ function scanHotfolder(){
         processXML(res[f]);
       }
     }
+    setTimeout(scanHotfolder, 60000);
   });
 
   function processXML(xmlfile)
@@ -42,7 +43,7 @@ function scanHotfolder(){
     });
 
 
-    fs.readFile(workfilename, function(err,data){
+    fs.readFileSync(workfilename, function(err,data){
       parser.parseString(data, function(err, result){
         //console.dir(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC']);
         console.dir(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']);
