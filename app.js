@@ -1,7 +1,7 @@
 var sql = require('mssql');
 var express = require('express');
 var config = require('./nogit/reprodb.js');
-var htfldr = require('./hotfolder2.js');
+var htfldr = require('./hotfolder3.js');
 var fs = require('fs');
 var xml2js = require('xml2js');
 

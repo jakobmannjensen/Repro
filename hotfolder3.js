@@ -6,6 +6,9 @@ var parser = new xml2js.Parser();
 var settingsFile = './Settings/configuration.xml';
 var scanfolder = '';
 var workfolder = '';
+var firstreadfile = '';
+var firstwritefile = '';
+var rjct = 'notsuccessful';
 
 
 module.exports.startHotfolder = function(){
@@ -30,6 +33,9 @@ function scanHotfolder(){
     if (err) {
       console.log('Error', err);
     }
+    firstreadfile = '';
+    firstwritefile = '';
+    /*
     for(var f in res)
     {
       if(res[f].includes('.xml'))
@@ -37,18 +43,37 @@ function scanHotfolder(){
         processXML(res[f]);
       }
     }
+    */
+    if(res.length>0){
+      if(res[0].includes('.xml'))
+      {
+        firstreadfile = res[0];
+
+        prom.then((fwrite)=>{
+          getXmlInfo(fwrite);
+        }, (errr)=>{
+          console.log('ErrorFuck '+errr);
+        }
+        );
+      }
+    }
     setTimeout(scanHotfolder, 10000);
   });
+}
 
-  function processXML(xmlfile)
+  function moveToWorkfolder()
   {
-    var bname = path.basename(xmlfile);
-    var workfilename = '/Users/jakobmannjensen/Documents/NodeJS/workfolder/'+bname;
-    fs.renameSync(xmlfile, workfilename, (err) => {
-      if (err) throw err;
+    console.log('1');
+    if(firstreadfile==''){return false}
+    console.log('2');
+    var bname = path.basename(firstreadfile);
+    firstwritefile = '/Users/jakobmannjensen/Documents/NodeJS/workfolder/'+bname;
+    fs.renameSync(firstreadfile, firstwritefile, (err) => {
+      if (err) return false;
     });
-    getXmlInfo(workfilename);
+    return true;
   }
+
   function getXmlInfo(workFl)
   {
     fs.readFileSync(workFl, function(err,data){
@@ -63,4 +88,11 @@ function scanHotfolder(){
       });
     });
   }
-}
+
+  var prom = new Promise((resolve, reject) =>{
+    if(moveToWorkfolder()){
+      resolve(firstwritefile);
+    } else {
+      reject(rjct);
+    }
+  });
