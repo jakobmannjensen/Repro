@@ -1,7 +1,7 @@
 var sql = require('mssql');
 var express = require('express');
 var config = require('./nogit/reprodb.js');
-var htfldr = require('./hotfolder3.js');
+var htfldr = require('./watchFolder.js');
 var fs = require('fs');
 var xml2js = require('xml2js');
 
@@ -60,7 +60,7 @@ app.get('/parse', function(req, res){
       console.dir('Parse function: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC']);
         //res.render('parse',{data: JSON.stringify(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETWFLAB'])});
         res.render('parse',{data: result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']});
-        htfldr.startHotfolder();
+        //htfldr.startHotfolder();
     });
   });
 });
