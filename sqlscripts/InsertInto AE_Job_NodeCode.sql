@@ -1,0 +1,6 @@
+use Repro;
+
+IF NOT EXISTS ( SELECT 1 FROM AE_Job WHERE AE_JobID = ['WFID'])
+BEGIN
+    INSERT INTO AE_Job (AE_JobID) VALUES (['WFID'])
+END

@@ -3,6 +3,8 @@ var fs = require('fs');
 var path = require('path');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
+var sql = require('mssql');
+var config = require('./nogit/reprodb.js');
 
 var watcher = chokidar.watch('/Users/jakobmannjensen/Documents/NodeJS/hotfolder', {ignored: /(^|[\/\\])\../}).on('all', (event, path) => {
   //console.log(event, path);
@@ -31,18 +33,18 @@ function getXmlInfo(workFl)
 {
   fs.readFile(workFl, function(err,data){
     parser.parseString(data, function(err, result){
-      console.log('TASKNAME: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TASKNAME']);
-      console.log('TICKETNAME: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETNAME']['0']['_']);
-      console.log('TICKETWFLAB: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETWFLAB']);
-      console.log('OPERATOR: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OPERATOR']);
-      console.log('STARTED: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STARTED']);
+      //console.log('TASKNAME: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TASKNAME']);
+      //console.log('TICKETNAME: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETNAME']['0']['_']);
+      //console.log('TICKETWFLAB: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETWFLAB']);
+      //console.log('OPERATOR: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OPERATOR']);
+      //console.log('STARTED: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STARTED']);
       console.log('Endedsync: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC']);
-      console.log('Ended: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDED']);
-      console.log('SERVER: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['SERVER']);
-      console.log('STATUS: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STATUS']);
-      console.log('WORKFLOWSTATUS: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WORKFLOWSTATUS']);
-      console.log('PRIORITY: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['PRIORITY']['0']['_']);
-      console.log('JOBFOLDERUNC: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['JOBFOLDERUNC']);
+      //console.log('Ended: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDED']);
+      //console.log('SERVER: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['SERVER']);
+      //console.log('STATUS: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STATUS']);
+      //console.log('WORKFLOWSTATUS: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WORKFLOWSTATUS']);
+      //console.log('PRIORITY: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['PRIORITY']['0']['_']);
+      //console.log('JOBFOLDERUNC: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['JOBFOLDERUNC']);
       console.log('WFID: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WFID']);
       console.log('SHORTID: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['SHORTID']);
       console.log('Input length: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['INPUT']['0']['INPUTUNC'].length);
@@ -61,17 +63,37 @@ function getXmlInfo(workFl)
   });
 }
 
-function addJobToDB(data)
+function addJobToDB()
 {
-  console.log('In the AddJobToDB');
+  console.log('In the addJobToDB');
 }
 
-function addJob_TaskToDB(data)
+function addJob_TaskToDB()
 {
-  console.log('In the AddJob_TaskToDB');
+  console.log('In the addJob_TaskToDB');
 }
 
-function addFileToDB(data)
+function addFileToDB()
 {
-  console.log('In the AddFileToDB');
+  console.log('In the addFiileToDB');
+}
+
+function injectDatabase(xmlResult, dType)
+{
+  if(dType == 1)
+  {
+    var jobId = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WFID'];
+    console.log('JobId injectdb: '+jobId);
+
+    new sql.ConnectionPool(config).connect().then(pool =>
+      {
+        return pool.request().input('AE_JobId', sql.VarChar(100), jobId).execute('CreateAE_Job')
+      }).then(result => { console.log('sql success');
+        sql.close();
+      }).catch(err => { console.log('sql NOT success' +err);
+        sql.close();
+      });
+    };
+
+
 }
