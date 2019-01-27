@@ -25,6 +25,7 @@ app.get('/', function(req, res){
   });
 });
 
+
 app.get('/milestones', function(req, res){
   sql.connect(config, function (err) {
       if (err) console.log(err);
