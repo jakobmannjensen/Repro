@@ -49,6 +49,29 @@ function getXmlInfo(workFl)
       console.log('Input: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['INPUT']['0']['INPUTUNC']);
       console.log('Output length: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC'].length);
       console.log('Output length: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC']);
+      if(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC']==undefined)
+      {
+        addJob_TaskToDB(workFl);
+      }
+      else
+      {
+        addJobToDB(workFl);
+      }
     });
   });
+}
+
+function addJobToDB(data)
+{
+  console.log('In the AddJobToDB');
+}
+
+function addJob_TaskToDB(data)
+{
+  console.log('In the AddJob_TaskToDB');
+}
+
+function addFileToDB(data)
+{
+  console.log('In the AddFileToDB');
 }
