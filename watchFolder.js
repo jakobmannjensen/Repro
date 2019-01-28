@@ -53,11 +53,11 @@ function getXmlInfo(workFl)
       console.log('Output length: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC']);
       if(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC']==undefined)
       {
-        addJob_TaskToDB(workFl);
+        addJob_TaskToDB(result);
       }
       else
       {
-        addJobToDB(workFl);
+        addJobToDB(result);
       }
     });
   });
@@ -68,9 +68,21 @@ function addJobToDB()
   console.log('In the addJobToDB');
 }
 
-function addJob_TaskToDB()
+function addJob_TaskToDB(xmlResult)
 {
   console.log('In the addJob_TaskToDB');
+  var jobId = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WFID'];
+  console.log('JobId injectdb: '+jobId);
+
+  new sql.ConnectionPool(config).connect().then(pool =>
+    {
+      return pool.request().input('AE_JobId', sql.VarChar(100), jobId).execute('CreateAE_Job')
+    }).then(result => { console.log('sql success');
+      sql.close();
+    }).catch(err => { console.log('sql NOT success' +err);
+      sql.close();
+    });
+  };
 }
 
 function addFileToDB()
