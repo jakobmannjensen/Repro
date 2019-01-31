@@ -57,15 +57,39 @@ function getXmlInfo(workFl)
       }
       else
       {
-        addJobToDB(result);
+        completeJobDB(result);
       }
     });
   });
 }
 
-function addJobToDB()
+function completeJobDB(xmlResult)
 {
   console.log('In the addJobToDB');
+
+  var jobId = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WFID'];
+  var workflowName = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETNAME']['0']['_'];
+	var job_ShortID = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['SHORTID'];
+	var job_Server = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['SERVER'];
+	var job_JobFolder = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['JOBFOLDERUNC'];
+	var job_Operator = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OPERATOR'];
+	var job_Priority = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['PRIORITY']['0']['_'];
+	var job_StartTime = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STARTED'];
+	var job_EndTime = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC'];
+	var job_Status = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STATUS'];
+	var job_WorkflowStatus = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WORKFLOWSTATUS'];
+
+  new sql.ConnectionPool(config).connect().then(pool =>
+    {
+      return pool.request().input('AE_JobId', sql.VarChar(100), jobId)
+      .input('WorkflowName', sql.VarChar(255), workflowName)
+      .input('Job_ShortID', sql.Int, job_ShortID).execute('CompleteAE_Job')
+    }).then(result => { console.log('sql success');
+      sql.close();
+    }).catch(err => { console.log('sql NOT success' +err);
+      sql.close();
+    });
+  };
 }
 
 function addJob_TaskToDB(xmlResult)
