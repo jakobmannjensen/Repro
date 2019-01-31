@@ -83,7 +83,12 @@ function completeJobDB(xmlResult)
     {
       return pool.request().input('AE_JobId', sql.VarChar(100), jobId)
       .input('WorkflowName', sql.VarChar(255), workflowName)
-      .input('Job_ShortID', sql.Int, job_ShortID).execute('CompleteAE_Job')
+      .input('Job_ShortID', sql.Int, job_ShortID)
+      .input('Job_Server', sql.VarChar(100), job_Server)
+      .input('Job_JobFolder', sql.VarChar(255), job_JobFolder)
+      .input('Job_Operator', sql.VarChar(255), job_Operator)
+      .input('Job_Priority', sql.VarChar(20), job_Priority)
+      .execute('CompleteAE_Job')
     }).then(result => { console.log('sql success');
       sql.close();
     }).catch(err => { console.log('sql NOT success' +err);
