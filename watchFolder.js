@@ -94,8 +94,7 @@ function completeJobDB(xmlResult)
     }).catch(err => { console.log('sql NOT success' +err);
       sql.close();
     });
-  };
-}
+  }
 
 function addJob_TaskToDB(xmlResult)
 {
@@ -112,7 +111,7 @@ function addJob_TaskToDB(xmlResult)
       sql.close();
     });
   };
-}
+
 
 function addFileToDB()
 {
@@ -135,6 +134,5 @@ function injectDatabase(xmlResult, dType)
         sql.close();
       });
     };
-
-
+    
 }
