@@ -37,9 +37,14 @@ function getXmlInfo(workFl)
       //console.log('TICKETNAME: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETNAME']['0']['_']);
       //console.log('TICKETWFLAB: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['TICKETWFLAB']);
       //console.log('OPERATOR: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OPERATOR']);
-      //console.log('STARTED: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STARTED']);
+      console.log('STARTED: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STARTED']);
+      //console.log('STARTED Splittest: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STARTED'].replace('T', ' '));
+      var test = result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STARTED'];
+      console.log('Test: '+String(test).replace('T',' ').replace('Z',''));
+      var buf = new Buffer.from(test);
+      console.log('BBuffer: '+buf.toString());
       console.log('Endedsync: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC']);
-      //console.log('Ended: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDED']);
+      console.log('Ended: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDED']);
       //console.log('SERVER: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['SERVER']);
       //console.log('STATUS: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STATUS']);
       //console.log('WORKFLOWSTATUS: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WORKFLOWSTATUS']);
@@ -75,7 +80,9 @@ function completeJobDB(xmlResult)
 	var job_Operator = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OPERATOR'];
 	var job_Priority = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['PRIORITY']['0']['_'];
 	var job_StartTime = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STARTED'];
-	var job_EndTime = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC'];
+  var js = new Date(String(job_StartTime).replace('T',' ').replace('Z',''));
+  var job_EndTime = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC'];
+  var je = new Date(String(job_EndTime).replace('T',' ').replace('Z',''));
 	var job_Status = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['STATUS'];
 	var job_WorkflowStatus = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WORKFLOWSTATUS'];
 
@@ -88,6 +95,10 @@ function completeJobDB(xmlResult)
       .input('Job_JobFolder', sql.VarChar(255), job_JobFolder)
       .input('Job_Operator', sql.VarChar(255), job_Operator)
       .input('Job_Priority', sql.VarChar(20), job_Priority)
+      .input('Job_StartTime', sql.DateTime, js)
+      .input('Job_EndTime', sql.DateTime, je)
+      .input('Job_Status', sql.VarChar(20), job_Status)
+      .input('Job_WorkflowStatus', sql.VarChar(20), job_WorkflowStatus)
       .execute('CompleteAE_Job')
     }).then(result => { console.log('sql success');
       sql.close();
@@ -134,5 +145,5 @@ function injectDatabase(xmlResult, dType)
         sql.close();
       });
     };
-    
+
 }
