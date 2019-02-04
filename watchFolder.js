@@ -64,7 +64,7 @@ function getXmlInfo(workFl)
       {
         completeJobDB(result);
       }
-      addFileToDB(result);
+      logFiles(result);
     });
   });
 }
@@ -125,68 +125,48 @@ function addJob_TaskToDB(xmlResult)
 }
 
 
-function addFileToDB(xmlResult)
+async function logFiles(xmlResult)
 {
-  var aE_ShortID = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['SHORTID'];
+  var shortID = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['SHORTID'];
 
-  //intput files
-  for(i=0;i<xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['INPUT']['0']['INPUTUNC'].length;i++)
-  {
-    //console.log('OOOOO: '+xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC'][i]);
-    var fileP = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['INPUT']['0']['INPUTUNC'][i];
-
-    new sql.ConnectionPool(config).connect().then(pool =>
-      {
-        return pool.request().input('AE_ShortID', sql.Int, aE_ShortID)
-        .input('AE_Job_INorOUT', sql.VarChar(255), 'INPUT')
-        .input('AE_Job_Path', sql.VarChar(255), fileP)
-        .execute('CreateAE_File')
-      }).then(result => { console.log('sql success');
-        sql.close();
-      }).catch(err => { console.log('sql NOT success' +err);
-        sql.close();
-      });
+  for (const ipath of xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['INPUT']['0']['INPUTUNC']) {
+    await delayedLog(shortID, 'INPUT', ipath);
   }
 
-
-
-  //output files
-  for(o=0;o<xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC'].length;o++)
-  {
-    //console.log('OOOOO: '+xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC'][i]);
-    var fileP = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC'][o];
-
-    new sql.ConnectionPool(config).connect().then(pool =>
-      {
-        return pool.request().input('AE_ShortID', sql.Int, aE_ShortID)
-        .input('AE_Job_INorOUT', sql.VarChar(255), 'OUTPUT')
-        .input('AE_Job_Path', sql.VarChar(255), fileP)
-        .execute('CreateAE_File')
-      }).then(result => { console.log('sql success');
-        sql.close();
-      }).catch(err => { console.log('sql NOT success' +err);
-        sql.close();
-      });
+  for (const opath of xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC']) {
+    await delayedLog(shortID, 'OUTPUT', opath);
   }
-  //console.log('In the addFiileToDB');
+  console.log('Done!');
+}
+function delay() {
+  return new Promise(resolve => setTimeout(resolve, 300));
+}
+
+async function delayedLog(sid, inout, path) {
+  // notice that we can await a function
+  // that returns a promise
+  await delay();
+  console.log('delayLogTest: '+sid+ ' -- '+inout+' -- '+path);
+  //Log to DB
+  new sql.ConnectionPool(config).connect().then(pool =>
+    {
+      return pool.request().input('AE_ShortID', sql.Int, sid)
+      .input('AE_Job_INorOUT', sql.VarChar(255), inout)
+      .input('AE_Job_Path', sql.VarChar(255), path)
+      .execute('CreateAE_File')
+    }).then(result => { console.log('sql success');
+      sql.close();
+    }).catch(err => { console.log('sql NOT success' +err);
+      sql.close();
+    });
 }
 /*
-function injectDatabase(xmlResult, dType)
-{
-  if(dType == 1)
-  {
-    var jobId = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WFID'];
-    console.log('JobId injectdb: '+jobId);
+//direkte fra nettet
+async function processArray(array) {
 
-    new sql.ConnectionPool(config).connect().then(pool =>
-      {
-        return pool.request().input('AE_JobId', sql.VarChar(100), jobId).execute('CreateAE_Job')
-      }).then(result => { console.log('sql success');
-        sql.close();
-      }).catch(err => { console.log('sql NOT success' +err);
-        sql.close();
-      });
-    };
-
+  for (const item of array) {
+    await delayedLog(item);
+  }
+  console.log('Done!');
 }
 */
