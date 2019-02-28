@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/bshead.ejs %>
+  </head>
+  <body>
+    <% include partials/nav.ejs %>
+    <h1>Workflows</h1>
+    <div class="container">
+      <table class="table table-striped" cellspacing="0" width="100%">
+        <thead class="black white-text">
+          <tr>
+            <th class="th-sm">Job ID</th>
+            <th class="th-sm">Workflow name</th>
+            <th class="th-sm">Short ID</th>
+            <th class="th-sm">Server</th>
+            <th class="th-sm">Job Folder</th>
+            <th class="th-sm">Operator</th>
+            <th class="th-sm">Priority</th>
+            <th class="th-sm">Start time</th>
+            <th class="th-sm">End time</th>
+            <th class="th-sm">Status</th>
+            <th class="th-sm">Workflow Status</th>
+          </tr>
+          <% data.forEach(function(item){ %>
+            <tr>
+              <td><%= item.AE_JobID %></td>
+              <td><%= item.WorkflowName %></td>
+              <td><%= item.Job_ShortID %></td>
+              <td><%= item.Job_Server %></td>
+              <td><%= item.Job_JobFolder %></td>
+              <td><%= item.Job_Operator %></td>
+              <td><%= item.Job_Priority %></td>
+              <td><%= item.Job_StartTime %></td>
+              <td><%= item.Job_EndTime %></td>
+              <td><%= item.Job_Status %></td>
+              <td><%= item.Job_WorkflowStatus %></td>
+            </tr>
+          <% }); %>
+        </thead>
+      </table>
+    </div>
+  </body>
+</html>

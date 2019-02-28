@@ -210,7 +210,7 @@ async function addJob_TaskToDB(xmlResult)
     }).catch(err => { console.log('sql NOT success' +err);
       sql.close();
     });
-
+    await delay();
     //ceaate the job task in db
     new sql.ConnectionPool(config).connect().then(pool =>
       {
