@@ -56,15 +56,21 @@ function getXmlInfo(workFl)
       //console.log('Input: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['INPUT']['0']['INPUTUNC']);
       //console.log('Output length: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC'].length);
       //console.log('Output: '+result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['OUTPUT']['0']['OUTPUTUNC']);
-      if(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC']==undefined)
-      {
-        addJob_TaskToDB(result);
+      try {
+        if(result['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['ENDEDASYNC']==undefined)
+        {
+          addJob_TaskToDB(result);
+        }
+        else
+        {
+          completeJobDB(result);
+        }
+        logFiles(result);
+      } catch (e) {
+        console.log('Error in xml read: '+e);
+      } finally {
+
       }
-      else
-      {
-        completeJobDB(result);
-      }
-      logFiles(result);
     });
   });
 }
@@ -194,7 +200,7 @@ async function addJob_TaskToDB(xmlResult)
   var workflowStatus = xmlResult['ntf:NOTIFICATIONS']['EVENT']['0']['TASK']['0']['WORKFLOWSTATUS'];
   console.log('JobId injectdb: '+jobId);
 //Create AE_Job is not existing
-/*
+
   new sql.ConnectionPool(config).connect().then(pool =>
     {
       return pool.request().input('AE_JobId', sql.VarChar(100), jobId)
@@ -204,7 +210,7 @@ async function addJob_TaskToDB(xmlResult)
     }).catch(err => { console.log('sql NOT success' +err);
       sql.close();
     });
-    */
+
     //ceaate the job task in db
     new sql.ConnectionPool(config).connect().then(pool =>
       {
