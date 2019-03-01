@@ -5,9 +5,9 @@
   </head>
   <body>
     <% include partials/nav.ejs %>
-    <h1>Workflows</h1>
+    <h2>Workflows</h2>
     <div class="container">
-      <table class="table table-striped" cellspacing="0" width="100%">
+      <table class="table table-condensed" cellspacing="0" width="100%">
         <thead class="black white-text">
           <tr>
             <th class="th-sm">Job ID</th>
@@ -31,8 +31,12 @@
               <td><%= item.Job_JobFolder %></td>
               <td><%= item.Job_Operator %></td>
               <td><%= item.Job_Priority %></td>
-              <td><%= item.Job_StartTime %></td>
-              <td><%= item.Job_EndTime %></td>
+              <td><% if(item.Job_StartTime!=null){ %>
+                <%= item.Job_StartTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
+              <% } %></td>
+              <td><% if(item.Job_EndTime!=null){ %>
+                <%= item.Job_EndTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
+              <% } %></td>
               <td><%= item.Job_Status %></td>
               <td><%= item.Job_WorkflowStatus %></td>
             </tr>
