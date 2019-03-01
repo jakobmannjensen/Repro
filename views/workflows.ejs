@@ -2,12 +2,67 @@
 <html>
   <head>
     <% include partials/bshead.ejs %>
+    <meta http-equiv="refresh" content="30" >
   </head>
   <body>
     <% include partials/nav.ejs %>
     <h2>Workflows</h2>
-    <div class="container">
-      <table class="table table-condensed" cellspacing="0" width="100%">
+
+<div class="list-group">
+  <!--
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">List group item heading</h5>
+      <small>3 days ago</small>
+      <span class="badge badge-primary badge-pill">1</span>
+    </div>
+    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+    <small>Donec id elit non mi porta.</small>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">List group item heading</h5>
+      <small class="text-muted">3 days ago</small>
+    </div>
+    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+    <small class="text-muted">Donec id elit non mi porta.</small>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">List group item heading</h5>
+      <small class="text-muted">3 days ago</small>
+    </div>
+    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+    <small class="text-muted">Donec id elit non mi porta.</small>
+  </a>
+-->
+  <% data.forEach(function(item){ %>
+    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><% if(item.WorkflowName!=null){ %>
+          <%= item.WorkflowName.replace(/swft/, '').replace(/Default/, '').replace(/wfnexus/, 'Nexus').replace(/\//g,'') %><% } %></h5>
+        <h6 class="mb-1"><%= item.AE_JobID %></h6>
+        <small class="text-muted"><% if(item.Job_StartTime!=null){ %>
+          Start:
+          <%= item.Job_StartTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
+        <% } %></small>
+        <small class="text-muted"><% if(item.Job_EndTime!=null){ %>
+          End:
+          <%= item.Job_EndTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
+        <% } %></small>
+      </div>
+      <p class="mb-1"><%= item.Job_JobFolder %></p>
+      <small class="text-muted"><%= item.Job_Status %></small>
+      <span class="badge badge-primary badge-pill">2</span>
+      <span class="badge badge-secondary badge-pill">10</span>
+    </a>
+  <% }); %>
+</div>
+
+
+    <!--<div class="container"> -->
+    <div class="table-responsive">
+      <table class="table" >
         <thead class="black white-text">
           <tr>
             <th class="th-sm">Job ID</th>
