@@ -2,102 +2,60 @@
 <html>
   <head>
     <% include partials/bshead.ejs %>
-    <meta http-equiv="refresh" content="30" >
+    <meta http-equiv="refresh" content="300" >
+    <script>
+  		function toggleVis(obj)
+  		{
+  			if(obj.style.display=='none')
+  			{
+  		   		obj.style.display = 'inline'
+  		   	}
+  			else
+  			{
+  				obj.style.display = 'none'
+  			}
+  		}
+  	</script>
   </head>
   <body>
     <% include partials/nav.ejs %>
-    <h2>Workflows</h2>
-
-<div class="list-group">
-  <!--
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
-      <span class="badge badge-primary badge-pill">1</span>
-    </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small>Donec id elit non mi porta.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small class="text-muted">Donec id elit non mi porta.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small class="text-muted">Donec id elit non mi porta.</small>
-  </a>
--->
+    <h2 id="bigheader" >Workflows</h2>
+  <% var iiiid = 1 %>
   <% data.forEach(function(item){ %>
-    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1"><% if(item.WorkflowName!=null){ %>
-          <%= item.WorkflowName.replace(/swft/, '').replace(/Default/, '').replace(/wfnexus/, 'Nexus').replace(/\//g,'') %><% } %></h5>
-        <h6 class="mb-1"><%= item.AE_JobID %></h6>
-        <small class="text-muted"><% if(item.Job_StartTime!=null){ %>
-          Start:
-          <%= item.Job_StartTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
-        <% } %></small>
-        <small class="text-muted"><% if(item.Job_EndTime!=null){ %>
-          End:
-          <%= item.Job_EndTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
-        <% } %></small>
+    <div id="level3" class="container-fluid" padding="10 0 0 0">
+      <div id="level2A" class="row" width="90%" style="padding-bottom: 2px;"">
+        <div id="level1A" class="col-sm-3" style="background-color:yellow;">
+          <h5 class="mb-1"><% if(item.WorkflowName!=null){ %>
+            <%= item.WorkflowName.replace(/swft/, '').replace(/Default/, '').replace(/wfnexus/, 'Nexus').replace(/\//g,'') %><% } %>
+          </h5>
+          <% if(item.WorkflowName!=null){ %>
+            <button class="badge badge-info badge-pill" style="outline: none;" onClick="toggleVis(this.parentNode.parentNode.parentNode.getElementsByTagName('div')[4])">i</button>
+          <% } %>
+        </div>
+        <div id="level1B" class="col-sm-6" style="background-color:lightblue;">
+            <h6 class="mb-1"><%= item.AE_JobID %></h6>
+            <p class="mb-1"><%= item.Job_JobFolder %></p>
+            <small class="text-muted"><%= item.Job_Status %></small>
+        </div>
+        <div id="level1C" class="col-sm-3" style="background-color:orange;" >
+          <small class="text-muted">
+            <% if(item.Job_StartTime!=null){ %>
+            Start:
+            <%= item.Job_StartTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
+            <% } %></small>
+            <br/>
+          <small class="text-muted">
+            <% if(item.Job_EndTime!=null){ %>
+            End:
+            <%= item.Job_EndTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
+            <% } %>
+          </small>
+        </div>
       </div>
-      <p class="mb-1"><%= item.Job_JobFolder %></p>
-      <small class="text-muted"><%= item.Job_Status %></small>
-      <span class="badge badge-primary badge-pill">2</span>
-      <span class="badge badge-secondary badge-pill">10</span>
-    </a>
-  <% }); %>
-</div>
-
-
-    <!--<div class="container"> -->
-    <div class="table-responsive">
-      <table class="table" >
-        <thead class="black white-text">
-          <tr>
-            <th class="th-sm">Job ID</th>
-            <th class="th-sm">Workflow name</th>
-            <th class="th-sm">Short ID</th>
-            <th class="th-sm">Server</th>
-            <th class="th-sm">Job Folder</th>
-            <th class="th-sm">Operator</th>
-            <th class="th-sm">Priority</th>
-            <th class="th-sm">Start time</th>
-            <th class="th-sm">End time</th>
-            <th class="th-sm">Status</th>
-            <th class="th-sm">Workflow Status</th>
-          </tr>
-          <% data.forEach(function(item){ %>
-            <tr>
-              <td><%= item.AE_JobID %></td>
-              <td><%= item.WorkflowName %></td>
-              <td><%= item.Job_ShortID %></td>
-              <td><%= item.Job_Server %></td>
-              <td><%= item.Job_JobFolder %></td>
-              <td><%= item.Job_Operator %></td>
-              <td><%= item.Job_Priority %></td>
-              <td><% if(item.Job_StartTime!=null){ %>
-                <%= item.Job_StartTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
-              <% } %></td>
-              <td><% if(item.Job_EndTime!=null){ %>
-                <%= item.Job_EndTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
-              <% } %></td>
-              <td><%= item.Job_Status %></td>
-              <td><%= item.Job_WorkflowStatus %></td>
-            </tr>
-          <% }); %>
-        </thead>
-      </table>
+      <div id="level2B" style="display: none;">
+        <p id="guf" class="guf">test</p>
+      </div>
     </div>
+  <% }); %>
   </body>
 </html>
