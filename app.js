@@ -80,6 +80,10 @@ app.get('/workflows', function(req, res){
   });
 });
 
+app.get('/dataview', function(req, res){
+          res.render('dataview');
+      });
+
 
 //app.listen('65310');
 app.listen('27100');
