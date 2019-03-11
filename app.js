@@ -81,7 +81,17 @@ app.get('/workflows', function(req, res){
 });
 
 app.get('/dataview', function(req, res){
-          res.render('dataview');
+  sql.connect(config, function (err) {
+      if (err) console.log(err);
+      var request = new sql.Request();
+      request.query('select * from AE_Job', function (err, queryresult) {
+          if (err) console.log(err)
+          //console.log(queryresult);
+          sql.close();
+          //console.log('teeest '+ differentDesignIDs(queryresult.recordset));
+          res.render('dataview', {data: queryresult.recordset});
+      });
+  });
       });
 
 

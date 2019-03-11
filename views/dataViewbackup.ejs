@@ -6,6 +6,8 @@
       $(document).ready(function() {
         $('#Joblist').DataTable();
       } );
+    </script>
+    <script>
       function toggleVis(obj)
       {
         if(obj.style.display=='none')
@@ -17,40 +19,7 @@
           obj.style.display = 'none'
         }
       }
-      function on(wid) {
-        document.getElementById("infobox").style.display = "block";
-        document.getElementById("WorkflowIdInfobox").innerHTML = "WorkflowId: "+wid;
-      }
-
-      function off() {
-        document.getElementById("infobox").style.display = "none";
-      }
     </script>
-    <style>
-    #infobox {
-      position: fixed;
-      display: none;
-      width: 50%;
-      height: 40%;
-      top: 10%;
-      left: 25%;
-      right: 25%;
-      bottom: 0;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 2;
-      cursor: pointer;
-    }
-
-    #infocontent{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      font-size: 50px;
-      color: white;
-      transform: translate(-50%,-50%);
-      -ms-transform: translate(-50%,-50%);
-    }
-    </style>
   </head>
   <body>
     <% include partials/nav.ejs %>
@@ -61,8 +30,8 @@
                 <tr>
                     <th>AE Ticket</th>
                     <th>Status</th>
-                    <th>Details</th>
-                    <th>Progress</th>
+                    <th>Kun I</th>
+                    <th>Age</th>
                     <th>Operator</th>
                     <th>Start/Stop</th>
                 </tr>
@@ -74,17 +43,13 @@
                       <% if(item.WorkflowName!=null){ %>
                       <%= item.WorkflowName.replace(/swft/, '').replace(/Default/, '').replace(/wfnexus/, 'Nexus').replace(/\//g,'') %><% } %>
                     </td>
-                    <td style="text-align:center"><%= item.Job_Status %></td>
-                    <td id="level1" style="text-align:center">
+                    <td><%= item.Job_Status %></td>
+                    <td id="level1">
                       <% if(item.WorkflowName!=null){ %>
-                        <button class="badge badge-info badge-pill" style="outline: none;" onClick="on('<%= item.AE_JobID %>')">i</button>
+                        <button class="badge badge-info badge-pill" style="outline: none;" onClick="document.getElementById('bigheader').innerHTML = this.parentNode.parentNode.parentNode.getElementsByTagName('tr')[1].id">i</button>
                       <% } %>
                     </td>
-                    <td style="text-align:center">
-                      <% if(item.WorkflowName!=null){ %>
-                        100%
-                      <% } %>
-                    </td>
+                    <td>61</td>
                     <td><%= item.Job_Operator %></td>
                     <td>
                       <small class="text-muted">
@@ -102,15 +67,16 @@
                       </small>
                     </td>
                 </tr>
+                <tr id="subinfo" style="display: none;">
+                  <td>
+                    <div id="level2B">
+                      <h6 class="mb-1"><%= item.AE_JobID %></h6>
+                    </div>
+                  </td>
+                </tr>
                   <%} }); %>
                 </tbody>
         </table>
-<div id="infobox" onclick="off()">
-  <div id="infocontent">
-    <div>
-      <h5 id="WorkflowIdInfobox"></h5>
-    </div>
-  </div>
-</div>
+
   </body>
 </html>
