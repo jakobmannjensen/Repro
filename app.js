@@ -92,7 +92,11 @@ app.get('/dataview', function(req, res){
           res.render('dataview', {data: queryresult.recordset});
       });
   });
-      });
+});
+
+app.get('/testpage', function(req, res){
+  res.render('testpage');
+});
 
 
 //app.listen('65310');

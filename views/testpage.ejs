@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    #infobox {
+      position: fixed;
+      display: inline;
+      width: 50%;
+      height: 40%;
+      top: 10%;
+      left: 25%;
+      right: 25%;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    #infocontent{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+    </style>
+  </head>
+  <body>
+
+
+
+<div class="container-fluid" id="infobox" onclick="off()">
+  <div class="row" id="infocontent">
+    <div class="col-sm-6">
+      <h5 id="WorkflowIdInfobox">complete crayy idtext</h5>
+    </div>
+    <div class="col-sm-6">
+      <p id="moretext">More stupid text</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
