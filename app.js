@@ -89,7 +89,7 @@ app.get('/dataview', function(req, res){
           //console.log(queryresult);
           sql.close();
           //console.log('teeest '+ differentDesignIDs(queryresult.recordset));
-          res.render('dataview', {data: queryresult.recordset});
+          res.render('dataview', {data: queryresult.recordset}, 'Test');
       });
   });
 });
