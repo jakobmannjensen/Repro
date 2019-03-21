@@ -89,7 +89,7 @@ app.get('/dataview', function(req, res){
           //console.log(queryresult);
           sql.close();
           //console.log('teeest '+ differentDesignIDs(queryresult.recordset));
-          res.render('dataview', {data: queryresult.recordset}, 'Test');
+          res.render('dataview', {data: queryresult.recordset});
       });
   });
 });
@@ -98,6 +98,19 @@ app.get('/testpage', function(req, res){
   res.render('testpage');
 });
 
+app.get('/all', function(req, res){
+  sql.connect(config, function (err) {
+      if (err) console.log(err);
+      var request = new sql.Request();
+      request.execute('SP_GetAll', function (err, queryresult) {
+          if (err) console.log(err)
+          //console.log(queryresult);
+          sql.close();
+          console.log(queryresult.recordset);
+          res.render('all', {data: queryresult.recordset});
+      });
+  });
+});
 
 //app.listen('65310');
 app.listen('27100');

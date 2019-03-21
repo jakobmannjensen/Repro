@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include partials/bshead.ejs %>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#Joblist').DataTable();
+      } );
+      function toggleVis(obj)
+      {
+        if(obj.style.display=='none')
+        {
+            obj.style.display = 'inline'
+          }
+        else
+        {
+          obj.style.display = 'none'
+        }
+      }
+      function on(wid, wf) {
+        document.getElementById("infobox").style.display = "block";
+        document.getElementById("WorkflowIdInfobox").innerHTML = "WorkflowId: "+wid;
+
+        //test only
+
+        try
+        {
+          jObj = JSON.parse(wf);
+          document.getElementById('testheader').innerHTML = jObj.AE_JobID;
+        }
+        catch (e)
+        {
+          document.getElementById('testheader').innerHTML = "Error: "+e.message+" "+wf;
+          document.getElementById('moretext').innerHTML = "error "+wf.charAt(198)+wf.charAt(199)+wf.charAt(200);
+        }
+
+      }
+
+      function off() {
+        document.getElementById("infobox").style.display = "none";
+      }
+    </script>
+    <style>
+    #infobox {
+      position: fixed;
+      display: none;
+      width: 50%;
+      height: 40%;
+      top: 10%;
+      left: 25%;
+      right: 25%;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    #infocontent{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 50px;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+    </style>
+  </head>
+  <body>
+    <% include partials/nav.ejs %>
+    <h1 id="bigheader">ALL</h1>
+    <h2 id="testheader">Test header unchanged </h2>
+
+    <table id="Joblist" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>AE Ticket</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                    <th>Progress</th>
+                    <th>Operator</th>
+                    <th>Start/Stop</th>
+                </tr>
+            </thead>
+            <tbody id="level3">
+                <% data.forEach(function(item){ if((item.WorkflowName!= null && item.WorkflowName.indexOf('nexus')<0) || item.WorkflowName == null){  %>
+                <tr id="level2">
+                    <td>
+                      <% if(item.WorkflowName!=null){ %>
+                      <%= item.WorkflowName.replace(/swft/, '').replace(/Default/, '').replace(/wfnexus/, 'Nexus').replace(/\//g,'') %><% } %>
+                    </td>
+                    <td style="text-align:center"><%= item.Job_Status %></td>
+                    <td id="level1" style="text-align:center">
+                      <% if(item.WorkflowName!=null){ %>
+                        <button class="badge badge-info badge-pill" style="outline: none;" onClick="on('<%= item.AE_JobID %>','<%= JSON.stringify(item).replace(/\\/g, "\\\\") %>')">i</button>
+                      <% } %>
+                    </td>
+                    <td style="text-align:center">
+                      <% if(item.WorkflowName!=null){ %>
+                        100%
+                      <% } %>
+                    </td>
+                    <td><%= item.Job_Operator %></td>
+                    <td>
+                      <small class="text-muted">
+                        <% if(item.Job_StartTime!=null){ %>
+                        <b>Start:</b>
+                        <%= item.Job_StartTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
+                        <% } %>
+                      </small>
+                      <br/>
+                      <small class="text-muted">
+                        <% if(item.Job_EndTime!=null){ %>
+                        <b>End:</b>
+                        <%= item.Job_EndTime.toISOString().replace(/T/, ' ').replace(/\..+/, '') %>
+                        <% } %>
+                      </small>
+                    </td>
+                </tr>
+                  <%} }); %>
+                </tbody>
+        </table>
+<div class="container" id="infobox" onclick="off()">
+  <div class="row">
+    <div class="col-sm-12">hele vejen over</div>
+  </div>
+  <div class="row" id="infocontent">
+    <div class="col-sm-6">
+      <h5 id="WorkflowIdInfobox">complete crayy idtext</h5>
+    </div>
+    <div class="col-sm-6">
+      <p id="moretext">More stupid text</p>
+    </div>
+  </div>
+</div>
+  </body>
+</html>
